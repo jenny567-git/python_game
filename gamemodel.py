@@ -122,6 +122,7 @@ class Player:
         cannon = self.getX() - self.game.getCannonSize()/2
         cannonball = proj.getX() - self.game.getBallSize()/2 
         return cannonball-cannon
+        #test
 
     """ The current score of this player """
     def getScore(self):
