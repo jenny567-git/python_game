@@ -119,10 +119,15 @@ class Player:
         # The distance should be how far the projectile and cannon are from touching, not the distance between their centers.
         # You probably need to use getCannonSize and getBallSize from Game to compensate for the size of cannons/cannonballs
         # return 0 #ODO: this is a dummy value.
-        cannon = self.getX() - self.game.getCannonSize()/2
-        cannonball = proj.getX() - self.game.getBallSize()/2 
+        if self.getX() < 0:
+            #shooting to left
+            cannon = self.getX()+ self.game.getBallSize() + self.game.getCannonSize() /2
+            cannonball = proj.getX() 
+        else:
+            #shooting to right
+            cannon = self.getX()
+            cannonball = proj.getX() + self.game.getBallSize() + self.game.getCannonSize() /2
         return cannonball-cannon
-        #test
 
     """ The current score of this player """
     def getScore(self):

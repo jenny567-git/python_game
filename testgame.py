@@ -85,6 +85,7 @@ def runTests(game):
     while proj.isMoving():
         proj.update(0.1)
         ticks += 1
+        print('ticks', ticks)
         assert ticks <= 61, "projectile should have stopped now..."
     assert ticks == 61, "Incorrect tick-count"
     assert proj.getY()==0.0, "projectile should always stop at y=0"
