@@ -22,7 +22,7 @@ class Game:
     """ The current player, i.e. the player whose turn it is """
     def getCurrentPlayer(self):
         #return None #TODO: this is just a dummy value
-        return self.players[self.getCurrentPlayerNumber()]
+        return self.players[self.currentPlayerIndex]
 
     """ The opponent of the current player """
     def getOtherPlayer(self):
