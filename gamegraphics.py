@@ -28,21 +28,22 @@ class GameGraphics:
         #create window, graphic comp, 2 playerGraphics objects
         self.game = game
         
+        #create window
+        win = GraphWin("Cannon game" , 640, 480, autoflush=False)
+        win.setCoords(-110, -10, 110, 155)
+        self.w = win
+        
         #create players
         self.p1 = PlayerGraphics(game.getCurrentPlayer(), self)
         self.p2 = PlayerGraphics(game.getOtherPlayer(), self)
         
-        #create window
-        win = GraphWin("Cannon game" , 640, 480, autoflush=False)
-        win.setCoords(-110, -10, 110, 155)
-        self.window = win
 
     def sync():
         #call sync for 2 playerGrap
         pass
 
     def getWindow(self):
-        return self.window
+        return self.w
 
 
 
