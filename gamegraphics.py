@@ -23,6 +23,25 @@ from graphics import *
 #       win = GraphWin("Cannon game" , 640, 480, autoflush=False)
 #       win.setCoords(-110, -10, 110, 155)
 # HINT: Don't forget to call draw() on every component you create, otherwise they will not be visible
+class GameGraphics:
+    def __init__(self, game):
+        #create window, graphic comp, 2 playerGraphics objects
+
+        #create window
+        win = GraphWin("Cannon game" , 640, 480, autoflush=False)
+        win.setCoords(-110, -10, 110, 155)
+        win.draw()
+        pass
+
+    def sync():
+        #call sync for 2 playerGrap
+        pass
+
+    def getWindow():
+        pass
+
+
+
 
 # TODO: There needs to be a class called PlayerGraphics here.
 # TODO: It needs only a constructor and a sync()-method
@@ -32,7 +51,16 @@ from graphics import *
 # HINT: Typically doesn't draw a projectile when created, but creates one at some point
 #       when sync() is called.
 # HINT: sync() needs to update the score text and draw/update a circle for the projectile if there is one. 
+class PlayerGraphics:
+    def __init__(self) -> None:
+        #draw a cannon + scoreboard
+        pass
 
+    def sync():
+        #draw a proj
+        #update score text
+        #update circle for proj
+        pass
 
 """ A somewhat specific input dialog class (adapted from the book) """
 class InputDialog:
