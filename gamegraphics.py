@@ -12,7 +12,6 @@
 
 # This is the only place where graphics should be imported!
 from graphics import *
-from gamemodel import *
 
 # TODO: There needs to be a class called GameGraphics here. 
 # Its constructor should take only a Game object.
@@ -28,6 +27,8 @@ class GameGraphics:
     def __init__(self, game):
         #create window, graphic comp, 2 playerGraphics objects
         self.game = game
+        
+        #create players
         self.p1 = PlayerGraphics(game.getCurrentPlayer(), self)
         self.p2 = PlayerGraphics(game.getOtherPlayer(), self)
         
