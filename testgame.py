@@ -64,7 +64,6 @@ def runTests(game):
 
     assert proj.getY()==0.0, "projectile should stop at y=0"
     assert abs(proj.getX() - 3.9637563106115907) < 0.01, "Projectile X-Position is {0:f}, should be -3.9637563106115907".format(proj.getX())
-
     assert abs(players[1].projectileDistance(proj) - -78.03624368938841) < 0.01, "Projectile X-distance to player is {0:f}, should be -78.03624368938841".format(players[1].projectileDistance(proj))
     assert abs(players[0].projectileDistance(proj) - 85.96375631061159) < 0.01, "Projectile X-distance to player is {0:f}, should be 85.96375631061159".format(players[0].projectileDistance(proj))
 
@@ -88,8 +87,11 @@ def runTests(game):
         assert ticks <= 61, "projectile should have stopped now..."
     assert ticks == 61, "Incorrect tick-count"
     assert proj.getY()==0.0, "projectile should always stop at y=0"
+    # print('p2 x', players[1].getX(), '\nproj X', proj.getX(), '\nproj dist', (players[1].projectileDistance(proj)))
+    print('p1 X', players[0].getX(),'\nproj X', proj.getX(), '\nproj dist', (players[0].projectileDistance(proj)))
     assert abs(proj.getX() - -86.84740597475547) < 0.01, "Projectile X-Position is {0:f}, should be -86.84740597475547".format(proj.getX())
     assert abs(players[1].projectileDistance(proj) - -168.84740597475547) < 0.01, "Projectile X-distance to player is {0:f}, should be 168.84740597475547".format(players[1].projectileDistance(proj))
+    print('--------------------')
     assert players[0].projectileDistance(proj) == 0, "Projectile X-distance to player is {0:f}, should be 0".format(players[1].projectileDistance(proj))
 
     # Test scoring

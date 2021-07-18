@@ -1,4 +1,4 @@
-from math import sin,cos,radians,copysign
+from math import dist, sin,cos,radians,copysign
 import random
 
 """ This is the model of the game"""
@@ -122,15 +122,28 @@ class Player:
         # The distance should be how far the projectile and cannon are from touching, not the distance between their centers.
         # You probably need to use getCannonSize and getBallSize from Game to compensate for the size of cannons/cannonballs
         # return 0 #ODO: this is a dummy value.
-        if self.getX() < 0:
-            #shooting to left
-            cannon = self.getX()+ self.game.getBallSize() + self.game.getCannonSize() /2
-            cannonball = proj.getX() 
+        ballX = proj.getX()
+        cannonX = self.getX()
+        ballSize = self.game.getBallSize() 
+        cannonSize = self.game.getCannonSize() /2
+
+        #ball to right side of cannon (negative value)
+        if cannonX < ballX:
+            # print('\nIN: cannon ---- ball')
+            distance = ballX - cannonX - ballSize - cannonSize
+        
+        # #ball to left side of cannon (positive value)
         else:
-            #shooting to right
-            cannon = self.getX()
-            cannonball = proj.getX() + self.game.getBallSize() + self.game.getCannonSize() /2
-        return cannonball-cannon
+            # print('\nIN: ball ---- cannon')
+            distance = ballX - cannonX + ballSize + cannonSize
+        
+        #find cannons' range and see if the ball hits the range
+        min_cannonX = cannonX - cannonSize
+        max_cannonX = cannonX + cannonSize
+        if min_cannonX < ballX < max_cannonX:
+            return 0
+
+        return distance
 
     """ The current score of this player """
     def getScore(self):
