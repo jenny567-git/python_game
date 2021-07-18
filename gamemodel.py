@@ -95,6 +95,9 @@ class Player:
         # HINT: Your job here is to call the constructor of Projectile with all the right values
         # Some are hard-coded, like the boundaries for x-position, others can be found in Game- or Player-objects
         # return None #TODO: this is just a dummy value
+        if self.getX() > 0:
+            #when shooting to left (angle starts from right side)
+            angle = angle+90
         self.projAim = angle, velocity
         wind = self.game.getCurrentWind()
         xPos = self.X
