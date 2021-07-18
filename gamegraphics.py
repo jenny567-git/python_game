@@ -12,6 +12,7 @@
 
 # This is the only place where graphics should be imported!
 from graphics import *
+from gamemodel import *
 
 # TODO: There needs to be a class called GameGraphics here. 
 # Its constructor should take only a Game object.
@@ -26,19 +27,21 @@ from graphics import *
 class GameGraphics:
     def __init__(self, game):
         #create window, graphic comp, 2 playerGraphics objects
-
+        self.game = game
+        self.p1 = PlayerGraphics(game.getCurrentPlayer(), self)
+        self.p2 = PlayerGraphics(game.getOtherPlayer(), self)
+        
         #create window
         win = GraphWin("Cannon game" , 640, 480, autoflush=False)
         win.setCoords(-110, -10, 110, 155)
-        win.draw()
-        pass
+        self.window = win
 
     def sync():
         #call sync for 2 playerGrap
         pass
 
-    def getWindow():
-        pass
+    def getWindow(self):
+        return self.window
 
 
 
@@ -52,12 +55,29 @@ class GameGraphics:
 #       when sync() is called.
 # HINT: sync() needs to update the score text and draw/update a circle for the projectile if there is one. 
 class PlayerGraphics:
-    def __init__(self) -> None:
-        #draw a cannon + scoreboard
-        pass
+    def __init__(self, player, ggame):
+        # self.player = player
+        self.color = player.getColor()
+        self.game = ggame
+        self.window = ggame.getWindow()
 
-    def sync():
-        #draw a proj
+        #draw cannon
+        cannonSize = ggame.game.getCannonSize()
+        cannonX = player.getX()
+        cannon = Rectangle(Point(cannonX,0), Point(cannonSize, 0))
+        cannon.setFill(player.getColor())
+        cannon.draw(self.window)
+
+        #draw scoreboard/text
+        txt = Text(Point(player.getX(), 0), player.getScore())
+        txt.draw(self.window)
+
+
+    def sync(self):
+        #create proj
+        proj = Circle(Point(0,0),10)
+        proj.setFill(self.color)
+        proj.draw(self.window)
         #update score text
         #update circle for proj
         pass
