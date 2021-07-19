@@ -40,6 +40,11 @@ class GameGraphics:
         #draw baseline
         Line(Point(-110,0), Point(110, 0)).draw(win)
 
+        #input dialog
+        angle, velocity = game.getCurrentPlayer().getAim()
+        dialog = InputDialog(angle, velocity, game.getCurrentWind())
+
+
     def sync(self):
         #call sync for 2 playerGrap
         pass
@@ -60,7 +65,7 @@ class GameGraphics:
 # HINT: sync() needs to update the score text and draw/update a circle for the projectile if there is one. 
 class PlayerGraphics:
     def __init__(self, player, ggame):
-        # self.player = player
+        self.player = player
         self.color = player.getColor()
         self.game = ggame
         self.window = ggame.getWindow()
@@ -81,9 +86,11 @@ class PlayerGraphics:
 
     def sync(self):
         #create proj
-        proj = Circle(Point(0,0),10)
-        proj.setFill(self.color)
-        proj.draw(self.window)
+        proj = self.player.fire(angle, velocity)
+
+        circle = Circle(Point(0,0),10)
+        circle.setFill(self.color)
+        circle.draw(self.window)
         #update score text
         #update circle for proj
         pass
