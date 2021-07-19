@@ -33,20 +33,30 @@ class GameGraphics:
         win.setCoords(-110, -10, 110, 155)
         self.w = win
         
-        #create players
-        self.p1 = PlayerGraphics(game.getCurrentPlayer(), self)
-        self.p2 = PlayerGraphics(game.getOtherPlayer(), self)
-        
         #draw baseline
         Line(Point(-110,0), Point(110, 0)).draw(win)
 
         #input dialog
         angle, velocity = game.getCurrentPlayer().getAim()
-        dialog = InputDialog(angle, velocity, game.getCurrentWind())
+        wind = game.getCurrentWind()
+        dialog = InputDialog(angle, velocity, wind)
+
+        #create players
+        self.p1 = PlayerGraphics(game.getCurrentPlayer(), self, angle, velocity, wind)
+        self.p2 = PlayerGraphics(game.getOtherPlayer(), self, angle, velocity, wind)
+        
+        #interact with dialog
+        choice = dialog.interact()
+        if choice == "Fire":
+            angle, velocity = dialog.getValues()
+        # if choice == "Quit":
+        #     dialog.close()
+                
+        
 
 
     def sync(self):
-        #call sync for 2 playerGrap
+        #call sync for 2 playerGrap, refresh the graphic
         pass
 
     def getWindow(self):
@@ -64,17 +74,19 @@ class GameGraphics:
 #       when sync() is called.
 # HINT: sync() needs to update the score text and draw/update a circle for the projectile if there is one. 
 class PlayerGraphics:
-    def __init__(self, player, ggame):
+    def __init__(self, player, ggame, angle, velocity, wind):
         self.player = player
         self.color = player.getColor()
-        self.game = ggame
+        self.ggame = ggame
         self.window = ggame.getWindow()
-
+        self.angle = angle
+        self.velocity = velocity
+        # self.wind = wind
+        
         #draw cannon
         cannonSize = ggame.game.getCannonSize() /2
         cannonX = player.getX()
-        print('cannonsize', cannonSize)
-        cannon = Rectangle(Point(cannonX-cannonSize,0), Point(cannonX+cannonSize, cannonSize*2)) ####
+        cannon = Rectangle(Point(cannonX-cannonSize,0), Point(cannonX+cannonSize, cannonSize*2)) 
         cannon.setFill(player.getColor())
         cannon.draw(self.window)
 
@@ -86,14 +98,18 @@ class PlayerGraphics:
 
     def sync(self):
         #create proj
-        proj = self.player.fire(angle, velocity)
-
-        circle = Circle(Point(0,0),10)
+        ballSize = self.ggame.game.getBallSize()
+        circle = Circle(Point(self.player.getX(),0), ballSize)
         circle.setFill(self.color)
+        circle.setOutline(self.color)
         circle.draw(self.window)
+        
+        #update when fired
+
+        # proj = gamemodel.Projectile(self.angle, self.velocity, self.ggame.game.getCurrentWind(), self.player.getX(), 0)
         #update score text
         #update circle for proj
-        pass
+        
 
 """ A somewhat specific input dialog class (adapted from the book) """
 class InputDialog:
@@ -187,11 +203,11 @@ class Button:
         self.active = 0
 
 #test model
-import gamemodel
-def Game():
-    game = gamemodel.Game(10,3)
-    ggame = GameGraphics(game)
+# import gamemodel
+# def Game():
+#     game = gamemodel.Game(10,3)
+#     ggame = GameGraphics(game)
 
 
-Game()
-wait = input("Press Enter to terminate.")
+# Game()
+# wait = input("Press Enter to terminate.")
