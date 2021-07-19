@@ -37,8 +37,10 @@ class GameGraphics:
         self.p1 = PlayerGraphics(game.getCurrentPlayer(), self)
         self.p2 = PlayerGraphics(game.getOtherPlayer(), self)
         
+        #draw baseline
+        Line(Point(-110,0), Point(110, 0)).draw(win)
 
-    def sync():
+    def sync(self):
         #call sync for 2 playerGrap
         pass
 
@@ -64,14 +66,16 @@ class PlayerGraphics:
         self.window = ggame.getWindow()
 
         #draw cannon
-        cannonSize = ggame.game.getCannonSize()
+        cannonSize = ggame.game.getCannonSize() /2
         cannonX = player.getX()
-        cannon = Rectangle(Point(cannonX,0), Point(cannonSize, 0))
+        print('cannonsize', cannonSize)
+        cannon = Rectangle(Point(cannonX-cannonSize,0), Point(cannonX+cannonSize, cannonSize*2)) ####
         cannon.setFill(player.getColor())
         cannon.draw(self.window)
 
+        
         #draw scoreboard/text
-        txt = Text(Point(player.getX(), 0), player.getScore())
+        txt = Text(Point(player.getX(), -5), 'Score: ' + str(player.getScore()))
         txt.draw(self.window)
 
 
@@ -174,3 +178,13 @@ class Button:
         self.label.setFill('darkgrey')
         self.rect.setWidth(1)
         self.active = 0
+
+#test model
+import gamemodel
+def Game():
+    game = gamemodel.Game(10,3)
+    ggame = GameGraphics(game)
+
+
+Game()
+wait = input("Press Enter to terminate.")
