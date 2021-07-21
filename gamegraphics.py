@@ -49,6 +49,7 @@ class GameGraphics:
         choice = dialog.interact()
         if choice == "Fire":
             angle, velocity = dialog.getValues()
+            self.sync()
         # if choice == "Quit":
         #     dialog.close()
                 
@@ -57,7 +58,8 @@ class GameGraphics:
 
     def sync(self):
         #call sync for 2 playerGrap, refresh the graphic
-        pass
+        self.p1.sync()
+        self.p2.sync()
 
     def getWindow(self):
         return self.w
@@ -81,12 +83,13 @@ class PlayerGraphics:
         self.window = ggame.getWindow()
         self.angle = angle
         self.velocity = velocity
+        self.circle = None
         # self.wind = wind
         
         #draw cannon
-        cannonSize = ggame.game.getCannonSize() /2
+        cannonRadius = ggame.game.getCannonSize() /2
         cannonX = player.getX()
-        cannon = Rectangle(Point(cannonX-cannonSize,0), Point(cannonX+cannonSize, cannonSize*2)) 
+        cannon = Rectangle(Point(cannonX-cannonRadius,0), Point(cannonX+cannonRadius, cannonRadius*2)) 
         cannon.setFill(player.getColor())
         cannon.draw(self.window)
 
@@ -97,18 +100,23 @@ class PlayerGraphics:
 
 
     def sync(self):
-        #create proj
-        ballSize = self.ggame.game.getBallSize()
-        circle = Circle(Point(self.player.getX(),0), ballSize)
-        circle.setFill(self.color)
-        circle.setOutline(self.color)
-        circle.draw(self.window)
         
-        #update when fired
+        #create proj
+        if self.player.getProjectile() is not None:
+            #if circle exits
+            if self.circle is not None:
+                #last position X - current position X, lastY -currentY
+                self.circle.move(self.player.getProjectile().getX(), self.player.getProjectile().getY())
+            else:
+            #else if circle don't exits
+                ballSize = self.ggame.game.getBallSize()
+                circle = Circle(Point(self.player.getX(),0), ballSize)
+                circle.setFill(self.color)
+                circle.setOutline(self.color)
+                self.circle = circle
+                circle.draw(self.window)
 
-        # proj = gamemodel.Projectile(self.angle, self.velocity, self.ggame.game.getCurrentWind(), self.player.getX(), 0)
         #update score text
-        #update circle for proj
         
 
 """ A somewhat specific input dialog class (adapted from the book) """
