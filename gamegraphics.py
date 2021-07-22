@@ -121,8 +121,11 @@ class PlayerGraphics:
                 
 
         #update score text
-        if self.player.projectileDistance(proj) == 0:
-            self.player.increaseScore()
+        # if self.player.projectileDistance(proj) == 0:
+            # self.player.increaseScore()
+            self.txt.setText('Score: ' + str(self.player.getScore()))
+            # self.txt.draw(self.window)
+
             # self.txt = Text(Point(self.player.getX(), -5), 'Score: ' + str(self.player.getScore()))
             # self.txt.draw(self.window)
         
