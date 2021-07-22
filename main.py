@@ -1,4 +1,5 @@
 # Imports everything from both model and graphics
+from random import choice
 from gamemodel import *
 from gamegraphics import *
 
@@ -25,15 +26,19 @@ def graphicPlay():
     graphics = GameGraphics(game)
 
     while True:
-        angle, vel = graphicInput(game, graphics)
-        proj = graphicFire(game, graphics, angle, vel)
-        FinishShot(game, graphics, proj)
+        choice = graphics.dialog.interact()
+        if choice == "Fire!":
+            angle, vel = graphicInput(game, graphics)
+            proj = graphicFire(game, graphics, angle, vel)
+            FinishShot(game, graphics, proj)
+        if choice == "Quit":
+            break
 
 def graphicInput(game, graphics):
     player = game.getCurrentPlayer()
     oldAngle, oldVel = player.getAim()
-    # newAngle = float(input())
-    # newVel = float(input())
+    # newAngle = float(graphics.dialog.angle.getText())
+    # newVel = float(graphics.dialog.vel.getText())
     newAngle, newVel = graphics.dialog.getValues()
     
     return newAngle, newVel

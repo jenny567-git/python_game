@@ -50,8 +50,9 @@ class GameGraphics:
         if choice == "Fire":
             angle, velocity = self.dialog.getValues()
             self.sync()
-        if choice == "Quit":
-            win.close()
+            # self.dialog.close()
+        # if choice == "Quit":
+            # win.close()
                 
         
 
