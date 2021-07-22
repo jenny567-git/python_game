@@ -102,22 +102,23 @@ class PlayerGraphics:
     def sync(self):
         
         proj = self.player.getProjectile()
-        lastX = proj.getX()
-        lastY = proj.getY()
         #check if player has projectile
         if proj is not None:
-            #if cannonball exits
-            if self.circle is not None:
-                #last position X - current position X, lastY -currentY
-                self.circle.move(lastX-proj.getX(), lastY-proj.getY())
-            else:
-            #else if cannonball don't exits
+            #if cannonball don't exits
+            if self.circle is None:
                 ballSize = self.ggame.game.getBallSize()
-                circle = Circle(Point(lastX,lastY), ballSize)
+                circle = Circle(Point(proj.getX(),proj.getY()), ballSize)
                 circle.setFill(self.color)
                 circle.setOutline(self.color)
                 self.circle = circle
                 circle.draw(self.window)
+            else:
+            #if cannonball exits, move circle to new location
+                center = self.circle.getCenter()
+                dx = proj.getX()-center.getX()
+                dy = proj.getY()-center.getY()
+                self.circle.move(dx,dy)
+                
 
         #update score text
         if self.player.projectileDistance(proj) == 0:
