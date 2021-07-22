@@ -86,7 +86,7 @@ class Player:
         self.X = position
         self.score = 0
         self.game = game
-        self.proj = Projectile
+        self.proj = None
         self.projAim = 45, 40
 
     """ Create and return a projectile starting at the centre of this players cannon. Replaces any previous projectile for this player. """
@@ -110,12 +110,14 @@ class Player:
 
     """ Returns the current projectile of this player if there is one, otherwise None """
     def getProjectile(self):
-        # if self.proj != None:
+        if self.proj is not None:
             return self.proj
-        # else:
+        else:
+            return None
             # return None #TODO: this is just a dummy value (although sometimes it's correct)
 
-    """ Gives the x-distance from this players cannon to a projectile. If the cannon and the projectile touch (assuming the projectile is on the ground and factoring in both cannon and projectile size) this method should return 0"""
+    """ Gives the x-distance from this players cannon to a projectile. If the cannon and the projectile touch 
+    (assuming the projectile is on the ground and factoring in both cannon and projectile size) this method should return 0"""
     def projectileDistance(self, proj):
         # HINT: both self (a Player) and proj (a Projectile) have getX()-methods.
         # HINT: This method should give a negative value if the projectile missed to the left and positive if it missed to the right.

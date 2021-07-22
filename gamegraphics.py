@@ -95,28 +95,35 @@ class PlayerGraphics:
 
         
         #draw scoreboard/text
-        txt = Text(Point(player.getX(), -5), 'Score: ' + str(player.getScore()))
-        txt.draw(self.window)
+        self.txt = Text(Point(player.getX(), -5), 'Score: ' + str(player.getScore()))
+        self.txt.draw(self.window)
 
 
     def sync(self):
         
-        #create proj
-        if self.player.getProjectile() is not None:
-            #if circle exits
+        proj = self.player.getProjectile()
+        lastX = proj.getX()
+        lastY = proj.getY()
+        #check if player has projectile
+        if proj is not None:
+            #if cannonball exits
             if self.circle is not None:
                 #last position X - current position X, lastY -currentY
-                self.circle.move(self.player.getProjectile().getX(), self.player.getProjectile().getY())
+                self.circle.move(lastX-proj.getX(), lastY-proj.getY())
             else:
-            #else if circle don't exits
+            #else if cannonball don't exits
                 ballSize = self.ggame.game.getBallSize()
-                circle = Circle(Point(self.player.getX(),0), ballSize)
+                circle = Circle(Point(lastX,lastY), ballSize)
                 circle.setFill(self.color)
                 circle.setOutline(self.color)
                 self.circle = circle
                 circle.draw(self.window)
 
         #update score text
+        if self.player.projectileDistance(proj) == 0:
+            self.player.increaseScore()
+            # self.txt = Text(Point(self.player.getX(), -5), 'Score: ' + str(self.player.getScore()))
+            # self.txt.draw(self.window)
         
 
 """ A somewhat specific input dialog class (adapted from the book) """
