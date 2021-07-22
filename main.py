@@ -38,8 +38,6 @@ def graphicPlay():
 def graphicInput(game, graphics):
     player = game.getCurrentPlayer()
     oldAngle, oldVel = player.getAim()
-    # newAngle = float(graphics.dialog.angle.getText())
-    # newVel = float(graphics.dialog.vel.getText())
     newAngle, newVel = graphics.dialog.getValues()
     graphics.sync()
     return newAngle, newVel
@@ -57,7 +55,6 @@ def FinishShot(game, graphics, proj):
         graphics.sync()
         # Start a new round
         game.newRound()
-        graphics.sync()
 
     # Switch active player
     game.nextPlayer()
