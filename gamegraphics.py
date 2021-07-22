@@ -61,6 +61,7 @@ class GameGraphics:
         #call sync for 2 playerGrap, refresh the graphic
         self.p1.sync()
         self.p2.sync()
+        self.dialog.height.setText("{0:.2f}".format(self.game.getCurrentWind()))
 
     def getWindow(self):
         return self.w

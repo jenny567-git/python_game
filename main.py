@@ -31,6 +31,7 @@ def graphicPlay():
             angle, vel = graphicInput(game, graphics)
             proj = graphicFire(game, graphics, angle, vel)
             FinishShot(game, graphics, proj)
+        
         if choice == "Quit":
             break
 
@@ -40,7 +41,7 @@ def graphicInput(game, graphics):
     # newAngle = float(graphics.dialog.angle.getText())
     # newVel = float(graphics.dialog.vel.getText())
     newAngle, newVel = graphics.dialog.getValues()
-    
+    graphics.sync()
     return newAngle, newVel
 
 def FinishShot(game, graphics, proj):
@@ -56,6 +57,7 @@ def FinishShot(game, graphics, proj):
         graphics.sync()
         # Start a new round
         game.newRound()
+        graphics.sync()
 
     # Switch active player
     game.nextPlayer()
