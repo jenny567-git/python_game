@@ -39,19 +39,19 @@ class GameGraphics:
         #input dialog
         angle, velocity = game.getCurrentPlayer().getAim()
         wind = game.getCurrentWind()
-        dialog = InputDialog(angle, velocity, wind)
+        self.dialog = InputDialog(angle, velocity, wind)
 
         #create players
         self.p1 = PlayerGraphics(game.getCurrentPlayer(), self, angle, velocity, wind)
         self.p2 = PlayerGraphics(game.getOtherPlayer(), self, angle, velocity, wind)
         
         #interact with dialog
-        choice = dialog.interact()
+        choice = self.dialog.interact()
         if choice == "Fire":
-            angle, velocity = dialog.getValues()
+            angle, velocity = self.dialog.getValues()
             self.sync()
-        # if choice == "Quit":
-        #     dialog.close()
+        if choice == "Quit":
+            win.close()
                 
         
 
@@ -91,6 +91,7 @@ class PlayerGraphics:
         cannonX = player.getX()
         cannon = Rectangle(Point(cannonX-cannonRadius,0), Point(cannonX+cannonRadius, cannonRadius*2)) 
         cannon.setFill(player.getColor())
+        cannon.setOutline(self.color)
         cannon.draw(self.window)
 
         
@@ -214,13 +215,3 @@ class Button:
         self.label.setFill('darkgrey')
         self.rect.setWidth(1)
         self.active = 0
-
-#test model
-# import gamemodel
-# def Game():
-#     game = gamemodel.Game(10,3)
-#     ggame = GameGraphics(game)
-
-
-# Game()
-# wait = input("Press Enter to terminate.")

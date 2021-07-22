@@ -21,7 +21,40 @@ def graphicPlay():
     # HINT: You can look at the text interface for some inspiration
     # Note that this code should not directly work with any drawing or such 
     #   all that is done by the methods in the classes.
-    pass
+    game = Game(10,3)
+    graphics = GameGraphics(game)
+
+    while True:
+        angle, vel = graphicInput(game, graphics)
+        proj = graphicFire(game, graphics, angle, vel)
+        FinishShot(game, graphics, proj)
+
+def graphicInput(game, graphics):
+    player = game.getCurrentPlayer()
+    oldAngle, oldVel = player.getAim()
+    # newAngle = float(input())
+    # newVel = float(input())
+    newAngle, newVel = graphics.dialog.getValues()
+    
+    return newAngle, newVel
+
+def FinishShot(game, graphics, proj):
+    # The current player
+    player = game.getCurrentPlayer()
+    # The player opposing the current player
+    other = game.getOtherPlayer()
+
+    # Check if we won
+    distance = other.projectileDistance(proj) 
+    if distance == 0:
+        player.increaseScore()
+        graphics.sync()
+        # Start a new round
+        game.newRound()
+
+    # Switch active player
+    game.nextPlayer()
+
 
 # Run the game with graphical interface
 graphicPlay()
