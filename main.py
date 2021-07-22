@@ -55,6 +55,8 @@ def FinishShot(game, graphics, proj):
         graphics.sync()
         # Start a new round
         game.newRound()
+        graphics.sync()
+
 
     # Switch active player
     game.nextPlayer()
