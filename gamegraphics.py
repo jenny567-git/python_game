@@ -46,10 +46,10 @@ class GameGraphics:
         self.p2 = PlayerGraphics(game.getOtherPlayer(), self, angle, velocity, wind)
         
         #interact with dialog
-        choice = self.dialog.interact()
-        if choice == "Fire":
-            angle, velocity = self.dialog.getValues()
-            self.sync()
+        # choice = self.dialog.interact()
+        # if choice == "Fire":
+        #     angle, velocity = self.dialog.getValues()
+        #     self.sync()
             # self.dialog.close()
         # if choice == "Quit":
             # win.close()
