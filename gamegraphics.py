@@ -118,16 +118,10 @@ class PlayerGraphics:
                 dx = proj.getX()-center.getX()
                 dy = proj.getY()-center.getY()
                 self.circle.move(dx,dy)
-                
 
         #update score text
-        # if self.player.projectileDistance(proj) == 0:
-            # self.player.increaseScore()
-            self.txt.setText('Score: ' + str(self.player.getScore()))
-            # self.txt.draw(self.window)
+        self.txt.setText('Score: ' + str(self.player.getScore()))
 
-            # self.txt = Text(Point(self.player.getX(), -5), 'Score: ' + str(self.player.getScore()))
-            # self.txt.draw(self.window)
         
 
 """ A somewhat specific input dialog class (adapted from the book) """
