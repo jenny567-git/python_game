@@ -13,19 +13,8 @@
 # This is the only place where graphics should be imported!
 from graphics import *
 
-# TODO: There needs to be a class called GameGraphics here. 
-# Its constructor should take only a Game object.
-# TODO: The class only needs two methods, sync() and getWindow(). 
-# HINT: The constructor needs to create a window, a couple of graphic components and two 
-#       PlayerGraphics-objects that in turn create additional components
-# HINT: sync() needs to call sync() for the two PlayerGraphics-objects
-# HINT: These lines are good for creating a window:
-#       win = GraphWin("Cannon game" , 640, 480, autoflush=False)
-#       win.setCoords(-110, -10, 110, 155)
-# HINT: Don't forget to call draw() on every component you create, otherwise they will not be visible
 class GameGraphics:
     def __init__(self, game):
-        #create window, graphic comp, 2 playerGraphics objects
         self.game = game
         
         #create window
@@ -42,21 +31,9 @@ class GameGraphics:
         self.dialog = InputDialog(angle, velocity, wind)
 
         #create players
-        self.p1 = PlayerGraphics(game.getCurrentPlayer(), self, angle, velocity, wind)
-        self.p2 = PlayerGraphics(game.getOtherPlayer(), self, angle, velocity, wind)
+        self.p1 = PlayerGraphics(game.getCurrentPlayer(), self, angle, velocity)
+        self.p2 = PlayerGraphics(game.getOtherPlayer(), self, angle, velocity)
         
-        #interact with dialog
-        # choice = self.dialog.interact()
-        # if choice == "Fire":
-        #     angle, velocity = self.dialog.getValues()
-        #     self.sync()
-            # self.dialog.close()
-        # if choice == "Quit":
-            # win.close()
-                
-        
-
-
     def sync(self):
         #call sync for 2 playerGrap, refresh the graphic
         self.p1.sync()
@@ -67,18 +44,8 @@ class GameGraphics:
         return self.w
 
 
-
-
-# TODO: There needs to be a class called PlayerGraphics here.
-# TODO: It needs only a constructor and a sync()-method
-# HINT: Each PlayerGraphics should contain one Player object. 
-# HINT: Should draw a cannon and a scoreboard immediately 
-#       (the Player object knows its position)
-# HINT: Typically doesn't draw a projectile when created, but creates one at some point
-#       when sync() is called.
-# HINT: sync() needs to update the score text and draw/update a circle for the projectile if there is one. 
 class PlayerGraphics:
-    def __init__(self, player, ggame, angle, velocity, wind):
+    def __init__(self, player, ggame, angle, velocity):
         self.player = player
         self.color = player.getColor()
         self.ggame = ggame
@@ -86,7 +53,6 @@ class PlayerGraphics:
         self.angle = angle
         self.velocity = velocity
         self.circle = None
-        # self.wind = wind
         
         #draw cannon
         cannonRadius = ggame.game.getCannonSize() /2
@@ -95,7 +61,6 @@ class PlayerGraphics:
         cannon.setFill(player.getColor())
         cannon.setOutline(self.color)
         cannon.draw(self.window)
-
         
         #draw scoreboard/text
         self.txt = Text(Point(player.getX(), -5), 'Score: ' + str(player.getScore()))
@@ -103,7 +68,6 @@ class PlayerGraphics:
 
 
     def sync(self):
-        
         proj = self.player.getProjectile()
         #check if player has projectile
         if proj is not None:
