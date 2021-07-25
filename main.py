@@ -28,21 +28,19 @@ def graphicPlay():
     while True:
         choice = graphics.dialog.interact()
         if choice == "Fire!":
-            angle, vel = graphicInput(game, graphics)
+            #get angle and velocity from input
+            angle, vel = graphicInput(graphics)
             proj = graphicFire(game, graphics, angle, vel)
-            FinishShot(game, graphics, proj)
+            finishShot(game, graphics, proj)
         
         if choice == "Quit":
             break
 
-def graphicInput(game, graphics):
-    player = game.getCurrentPlayer()
-    oldAngle, oldVel = player.getAim()
+def graphicInput(graphics):
     newAngle, newVel = graphics.dialog.getValues()
-    graphics.sync()
     return newAngle, newVel
 
-def FinishShot(game, graphics, proj):
+def finishShot(game, graphics, proj):
     # The current player
     player = game.getCurrentPlayer()
     # The player opposing the current player
@@ -52,11 +50,10 @@ def FinishShot(game, graphics, proj):
     distance = other.projectileDistance(proj) 
     if distance == 0:
         player.increaseScore()
-        graphics.sync()
+        
         # Start a new round
         game.newRound()
         graphics.sync()
-
 
     # Switch active player
     game.nextPlayer()
