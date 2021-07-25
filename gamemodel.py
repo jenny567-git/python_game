@@ -115,7 +115,7 @@ class Player:
         else:
             distance = maxBallX - min_cannonX
         
-        #hit cannon to center
+        #hit center of cannon
         if min_cannonX <= ballX <= max_cannonX:
             distance = 0
 
