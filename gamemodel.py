@@ -95,7 +95,6 @@ class Player:
     def projectileDistance(self, proj):
         ballX = proj.getX()
         cannonX = self.getX()
-        # ballRadius = self.game.getBallSize()/2
         ballSize = self.game.getBallSize() 
         cannonRadius = self.game.getCannonSize() /2
 
