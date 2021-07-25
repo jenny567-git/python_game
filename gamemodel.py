@@ -95,21 +95,32 @@ class Player:
     def projectileDistance(self, proj):
         ballX = proj.getX()
         cannonX = self.getX()
+        # ballRadius = self.game.getBallSize()/2
         ballSize = self.game.getBallSize() 
         cannonRadius = self.game.getCannonSize() /2
 
-        #ball to right side of cannon (negative value)
-        if cannonX < ballX:
-            distance = ballX - cannonX - ballSize - cannonRadius
-        
-        #ball to left side of cannon (positive value)
-        else:
-            distance = ballX - cannonX + ballSize + cannonRadius
-        
-        #find cannons' range and see if the ball hits the range
+        #the cannon range 
         min_cannonX = cannonX - cannonRadius
         max_cannonX = cannonX + cannonRadius
-        if min_cannonX < ballX < max_cannonX:
+        
+        #ball range
+        minBallX = ballX - ballSize
+        maxBallX = ballX + ballSize
+
+        #ball to right side of cannon (positive value)
+        if cannonX < ballX:
+            distance = minBallX - max_cannonX
+        
+        #ball to left side of cannon (negative value)
+        else:
+            distance = maxBallX - min_cannonX
+        
+        #hit cannon to center
+        if min_cannonX <= ballX <= max_cannonX:
+            distance = 0
+
+        #hit side of cannon 
+        if minBallX <= max_cannonX <= maxBallX or minBallX <= min_cannonX <= maxBallX:
             distance = 0
 
         return distance
